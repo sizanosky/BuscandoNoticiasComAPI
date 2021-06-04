@@ -11,7 +11,12 @@ print("Hello World!")
 if __name__ == '__main__':
 
     # Cabeçalho.
-    cabecalho()
+    cabecalho("Buscando notícias BR com API 'newsapi.org'")
 
-    #  Função para buscar as notícias.
-    top_noticias(PAIS)
+    # Variável armazena o retorno da função que busca as notícias.
+    lista_noticias = top_noticias(PAIS)
+
+    # Loop para percorrer os itens da lista_noticias e imprimir na tela
+    print(f"==== Top noticias {PAIS.upper()}====\n")
+    for numero in range(len(lista_noticias)):
+        print(f"{numero + 1} - {lista_noticias[numero]}")  # {item_lista[índice]

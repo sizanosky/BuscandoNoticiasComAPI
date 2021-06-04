@@ -2,17 +2,17 @@ import requests
 from config import *
 
 
-def cabecalho():
+def cabecalho(titulo, opcional=""):
     """
     Formata uma cabeçalho com o título do programa.
+    :param titulo: Texto que será exibido como título.
+    :param opcional: Valor opcional para ser exibido.
     :return: Título
     """
-    titulo = "Buscando notícias com API 'newsapi.org' - Python3"
-    print(f'\n{"*" * len(titulo) + 10 * "*"}')
-    print(f'{"*" * len(titulo) + 10 * "*"}')
-    print(f"++++ {titulo} ++++")
-    print(f'{"*" * len(titulo) + 10 * "*"}')
-    print(f'{"*" * len(titulo) + 10 * "*"}\n')
+
+    print(f'\n{"*" * len(titulo + opcional) + 10 * "*"}')
+    print(f"++++ {titulo}{opcional} ++++")
+    print(f'{"*" * len(titulo + opcional) + 10 * "*"}\n')
 
 
 def top_noticias(pais):
@@ -22,22 +22,24 @@ def top_noticias(pais):
     :param pais: País escolhido para a busca
     :return: Lista de noticias
     """
-    url = f"{URL_BASE}country={PAIS}&category={CATEGORIA}&apiKey={API_KEY}"
+    url = f"{URL_BASE}country={pais}&category={CATEGORIA}&apiKey={API_KEY}"
 
-    #  Coletando dados no formato JSON
+    # Coletando dados no formato JSON
     resposta = requests.get(url).json()
-    #  print(resposta)
+    # print(resposta)
 
-    #  Mostrando todos os artigos encontrados.
+    # Mostrando todos os artigos encontrados.
     artigos = resposta['articles']
+    # print(resposta)
 
-    #  lista com as principais notícias
+    # lista com as principais notícias
     lista_noticias = []
 
+    # Loop para buscar os itens na lista resposta e ordenar em lista_noticias
     for artigo in artigos:
-        lista_noticias.append(f"Título.....: {artigo['title']}\n"
-                              f"Imagem.....: {artigo['urlToImage']}\n"
-                              f"Publicado..: {artigo['publishedAt']}\n")
+        lista_noticias.append(f"{artigo['title']} ,\n\t"
+                              f" URL noticia: {artigo['url']} ,\n\t"
+                              f" Imagem: {artigo['urlToImage']} ,\n\t"
+                              f" Publicado em: {artigo['publishedAt']} ,\n\t")
 
-    print(lista_noticias)
-
+    return lista_noticias
