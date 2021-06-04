@@ -19,14 +19,14 @@ def top_noticias(pais):
     """
     Função para buscar as top noticias do site "newsapi.org",
     site baseado em noticias da BBC.
-    :param pais: País escolhido para a busca
+    :param pais: País escolhido pelo usuário para a busca
     :return: Lista de noticias
     """
     url = f"{URL_BASE}country={pais}&category={CATEGORIA}&apiKey={API_KEY}"
 
     # Coletando dados no formato JSON
     resposta = requests.get(url).json()
-    # print(resposta)
+    print(url)
 
     # Mostrando todos os artigos encontrados.
     artigos = resposta['articles']
